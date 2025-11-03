@@ -8,6 +8,7 @@ public class Employee
     public DateTime HireDate { get; set; }
 
     public ICollection<EmployeeDepartment> EmployeeDepartments { get; set; } = new List<EmployeeDepartment>();
+    public ICollection<DepartmentManager> DepartmentManager { get; set; } = new List<DepartmentManager>();
 }
 
 public enum Gender
