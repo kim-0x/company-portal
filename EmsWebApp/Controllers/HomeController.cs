@@ -1,20 +1,25 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using EmsWebApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmsWebApp.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly CompanyPortalDbContext _context;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, CompanyPortalDbContext context)
     {
         _logger = logger;
+        _context = context;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
+        var list = await _context.Employees.ToListAsync();
+        _logger.LogInformation("Fetched {Count} employees from the database.", list.Count);
         return View();
     }
 
