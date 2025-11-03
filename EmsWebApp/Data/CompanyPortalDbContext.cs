@@ -10,6 +10,7 @@ public class CompanyPortalDbContext : DbContext
 
     // Define DbSets for your entities here
     public DbSet<Employee> Employees => Set<Employee>();
+    public DbSet<Department> Departments => Set<Department>();
 
     override protected void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -23,6 +24,9 @@ public class CompanyPortalDbContext : DbContext
         modelBuilder.Entity<Employee>()
          .Property(e => e.Gender)
          .HasConversion(genderConverter);
+
+        modelBuilder.Entity<Department>()
+         .HasKey(d => d.Code);
 
         // Configure entity properties and relationships here if needed
     }

@@ -20,6 +20,9 @@ public class HomeController : Controller
     {
         var list = await _context.Employees.ToListAsync();
         _logger.LogInformation("Fetched {Count} employees from the database.", list.Count);
+        
+        var _departmentList = await _context.Departments.ToListAsync();
+        _logger.LogInformation("Fetched {Count} departments from the database.", _departmentList.Count);
         return View();
     }
 
