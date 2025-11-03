@@ -11,6 +11,7 @@ public class CompanyPortalDbContext : DbContext
     // Define DbSets for your entities here
     public DbSet<Employee> Employees => Set<Employee>();
     public DbSet<Department> Departments => Set<Department>();
+    public DbSet<EmployeeDepartment> EmployeeDepartments => Set<EmployeeDepartment>();
 
     override protected void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -28,6 +29,19 @@ public class CompanyPortalDbContext : DbContext
         modelBuilder.Entity<Department>()
          .HasKey(d => d.Code);
 
-        // Configure entity properties and relationships here if needed
+        modelBuilder.Entity<EmployeeDepartment>(ed =>
+        {
+            ed.HasKey(e => new { e.EmployeeId, e.DepartmentCode });
+
+            ed.HasOne(e => e.Employee)
+              .WithMany(e => e.EmployeeDepartments)
+              .HasForeignKey(e => e.EmployeeId)
+              .OnDelete(DeleteBehavior.Cascade); // When an Employee is deleted, delete related EmployeeDepartment records
+
+            ed.HasOne(e => e.Department)
+              .WithMany(d => d.EmployeeDepartments)
+              .HasForeignKey(e => e.DepartmentCode)
+              .OnDelete(DeleteBehavior.Cascade); // When a Department is deleted, delete related EmployeeDepartment records
+        });
     }
 }

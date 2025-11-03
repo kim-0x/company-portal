@@ -6,6 +6,8 @@ public class Employee
     public required string LastName { get; set; }
     public Gender Gender { get; set; }
     public DateTime HireDate { get; set; }
+
+    public ICollection<EmployeeDepartment> EmployeeDepartments { get; set; } = new List<EmployeeDepartment>();
 }
 
 public enum Gender

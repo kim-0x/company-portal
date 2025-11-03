@@ -23,6 +23,13 @@ public class HomeController : Controller
         
         var _departmentList = await _context.Departments.ToListAsync();
         _logger.LogInformation("Fetched {Count} departments from the database.", _departmentList.Count);
+
+        var _activeEmployees = await _context.Employees
+            .Include(e => e.EmployeeDepartments)
+            .Where(e => e.EmployeeDepartments.Any(ed => ed.ToDate != null))
+            .ToListAsync();
+        
+        _logger.LogInformation("Fetched {Count} active employees from the database.", _activeEmployees.Count());
         return View();
     }
 
