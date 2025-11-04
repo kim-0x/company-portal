@@ -1019,8 +1019,8 @@ namespace EmsWebApp.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.Sql(@"
-                DELETE FROM Employees
-                WHERE EmployeeID BETWEEN 10001 AND 11000;
+                DELETE FROM ""Employees""
+                WHERE ""EmployeeId"" BETWEEN 10001 AND 11000;
             ");
         }
     }

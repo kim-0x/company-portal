@@ -9,6 +9,8 @@ public class Employee
 
     public ICollection<EmployeeDepartment> EmployeeDepartments { get; set; } = new List<EmployeeDepartment>();
     public ICollection<DepartmentManager> DepartmentManager { get; set; } = new List<DepartmentManager>();
+    public ICollection<EmployeeTitle> Titles { get; set; } = new List<EmployeeTitle>();
+    public ICollection<EmployeeSalary> Salaries { get; set; } = new List<EmployeeSalary>();
 }
 
 public enum Gender

@@ -1123,7 +1123,7 @@ namespace EmsWebApp.Migrations
         {
             migrationBuilder.Sql(@"
             DELETE FROM ""EmployeeDepartments""
-            WHERE emp_no BETWEEN 10001 AND 11000;
+            WHERE ""EmployeeId"" BETWEEN 10001 AND 11000;
             ");
         }
     }
