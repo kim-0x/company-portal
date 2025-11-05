@@ -18,19 +18,13 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var list = await _context.Employees.ToListAsync();
-        _logger.LogInformation("Fetched {Count} employees from the database.", list.Count);
-        
-        var _departmentList = await _context.Departments.ToListAsync();
-        _logger.LogInformation("Fetched {Count} departments from the database.", _departmentList.Count);
+        var viewModel = new EmployeeProfileViewModel
+        {
+            Items = await _context.EmployeeProfiles
+                .ToListAsync()
+        };
 
-        var _activeEmployees = await _context.Employees
-            .Include(e => e.EmployeeDepartments)
-            .Where(e => e.EmployeeDepartments.Any(ed => ed.ToDate != null))
-            .ToListAsync();
-        
-        _logger.LogInformation("Fetched {Count} active employees from the database.", _activeEmployees.Count());
-        return View();
+        return View(viewModel);
     }
 
     public IActionResult Privacy()
